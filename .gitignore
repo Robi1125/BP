@@ -1,0 +1,9 @@
+# titkok
+.env
+
+# függőségek és build
+node_modules/
+out/
+cache/
+broadcast/
+lib/

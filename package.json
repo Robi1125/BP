@@ -1,0 +1,24 @@
+{
+  "name": "zerodev-hook-session-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "session-test": "tsx src/session-key-test.ts",
+    "window-test": "tsx src/window-test.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@zerodev/ecdsa-validator": "^5.4.9",
+    "@zerodev/permissions": "^5.6.4",
+    "@zerodev/sdk": "^5.5.12",
+    "dotenv": "^18.0.9",
+    "tslib": "^2.9.1",
+    "viem": "^2.57.16"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
