@@ -20,6 +20,7 @@ export const owner = privateKeyToAccount(requireEnv("OWNER_PRIVATE_KEY") as `0x$
 export const entryPoint = getEntryPoint("0.7");
 export const kernelVersion = KERNEL_V3_1;
 
+/** Owner-only (sudo) Kernel account and clients. The owner is not restricted by the hook. */
 export async function setup() {
   const publicClient = createPublicClient({
     transport: http(ZERODEV_RPC),

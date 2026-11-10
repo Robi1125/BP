@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "session-test": "tsx src/session-key-test.ts",
+    "owner-test": "tsx src/owner-test.ts",
+    "set-config": "tsx src/set-config.ts",
+    "withdraw": "tsx src/withdraw.ts",
     "window-test": "tsx src/window-test.ts",
     "typecheck": "tsc --noEmit"
   },
@@ -14,7 +16,7 @@
     "@zerodev/sdk": "^5.5.12",
     "dotenv": "^18.0.9",
     "tslib": "^2.9.1",
-    "viem": "^2.57.16"
+    "viem": "^2.57.17"
   },
   "devDependencies": {
     "@types/node": "^26.6.6",

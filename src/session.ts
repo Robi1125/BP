@@ -27,9 +27,12 @@ export const hookAbi = [
 ] as const;
 
 /**
- * Session key kliens, amelynek a validátorához kötődik a hook.
- * A hook a regular (session key) validátorra vonatkozik, az owner (root) szabad marad.
- * Az account címe megegyezik a sima owner account címével.
+ * Builds a session key client whose validator the hook is attached to.
+ * The hook applies to the regular (session key) validator; the owner (root) stays unrestricted.
+ * The account address is the same as the plain owner account's address.
+ *
+ * hookInitData is passed to the SDK as the hook's enable data. The current hook ignores it
+ * (the limits are set with setConfig), but the SDK needs some value.
  */
 export async function buildSession(opts: { hookInitData: Hex; sessionKey?: Hex }) {
   const { publicClient, account: ownerAccount } = await setup();
@@ -38,7 +41,8 @@ export async function buildSession(opts: { hookInitData: Hex; sessionKey?: Hex }
   const sessionKey = opts.sessionKey ?? generatePrivateKey();
   const sessionAccount = privateKeyToAccount(sessionKey);
 
-  // FIGYELEM: a toSudoPolicy({}) csak teszteléshez jó, élesben Call/Gas/Rate Limit policy kell.
+  // WARNING: toSudoPolicy({}) is only for testing. In production use call/gas/rate-limit
+  // policies, and make sure the session key cannot call the hook's setConfig.
   const sessionSigner = await toECDSASigner({ signer: sessionAccount });
   const permissionValidator = await toPermissionValidator(publicClient, {
     entryPoint,
@@ -65,7 +69,7 @@ export async function buildSession(opts: { hookInitData: Hex; sessionKey?: Hex }
   });
   if (sessionKernelAccount.address.toLowerCase() !== accountAddress.toLowerCase()) {
     throw new Error(
-      `Az account címe eltér (${sessionKernelAccount.address} vs ${accountAddress}).`
+      `Account address mismatch (${sessionKernelAccount.address} vs ${accountAddress}).`
     );
   }
 
